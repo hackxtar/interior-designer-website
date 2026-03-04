@@ -8,7 +8,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Update active section for mobile bottom nav
       const sections = ['home', 'about', 'portfolio', 'services', 'contact'];
       let current = 'home';
@@ -20,7 +20,7 @@ export default function Navbar() {
       }
       setActiveSection(current);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -36,28 +36,33 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop & Top Mobile Header */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white shadow-md py-4' : 'bg-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center">
-            <a href="#home" className={`text-2xl font-serif tracking-wide transition-colors ${isScrolled ? 'text-brand-dark' : 'text-white'}`}>
+      <nav className="absolute md:fixed w-full z-50 py-4 transition-all duration-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
+          <div className={`flex flex-col md:flex-row justify-center md:justify-between items-center transition-all duration-500 px-6 py-3 md:py-4 rounded-full shadow-2xl border ${isScrolled
+              ? 'bg-white/95 backdrop-blur-lg border-gray-100 w-full'
+              : 'bg-white/10 backdrop-blur-md border-white/20 w-[95%] md:w-[90%]'
+            }`}>
+            <a href="#home" className={`text-xl md:text-2xl font-serif tracking-wide transition-all ${isScrolled ? 'text-brand-dark' : 'text-white'} text-center md:text-left w-full md:w-auto`}>
               SPACE <span className="italic text-brand-accent">INTERIOR</span>
             </a>
-            
+
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-10 items-center">
               {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href} 
-                  className={`nav-link transition-colors hover:text-brand-accent ${isScrolled ? 'text-brand-dark' : 'text-white/90'}`}
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`nav-link text-sm font-medium transition-colors hover:text-brand-accent ${isScrolled ? 'text-brand-dark' : 'text-white/90'}`}
                 >
                   {link.name}
                 </a>
               ))}
             </div>
-            
+
             <div className="hidden md:block">
-              <a href="#contact" className="btn-solid px-6 py-3 shadow-sm">Let's Talk</a>
+              <a href="#contact" className="btn-solid px-6 py-2 md:py-3 shadow-lg rounded-full text-sm">
+                Let's Talk
+              </a>
             </div>
           </div>
         </div>
@@ -70,9 +75,9 @@ export default function Navbar() {
             const Icon = link.icon;
             const isActive = activeSection === link.id;
             return (
-              <a 
-                key={link.name} 
-                href={link.href} 
+              <a
+                key={link.name}
+                href={link.href}
                 className={`flex flex-col items-center justify-center w-16 transition-colors ${isActive ? 'text-brand-accent' : 'text-brand-dark/50 hover:text-brand-dark'}`}
               >
                 <Icon size={20} strokeWidth={isActive ? 2.5 : 2} className="mb-1" />
